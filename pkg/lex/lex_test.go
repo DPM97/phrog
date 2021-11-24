@@ -6,18 +6,24 @@ import (
 )
 
 func TestFetchNextToken(t *testing.T) {
-	input := `assign five = 5;
-	assign ten = 10;
-		 assign add = function(x, y) {
-			 x + y;
+	input := `assign five 5;
+	assign ten 10;
+	assign add function(x, y) {
+		x + y;
 	};
-		 assign result = add(five, ten);
-		 !-/*5;
-		 5 < 10 > 5;
-		 if (5 < 10) {
-				 return true;
-		 } else {
-				 return false;
+	
+	assign result add(five, ten);
+	
+	!-/*5;
+	5 < 10 > 5;
+
+	result != 15;
+	result == 15;
+
+	if (5 < 10) {
+		return true;
+	} else {
+		return false;
 	}
 	`
 
@@ -27,17 +33,14 @@ func TestFetchNextToken(t *testing.T) {
 	}{
 		{token.ASSIGN, "assign"},
 		{token.ID, "five"},
-		{token.EQUAL, "="},
 		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
 		{token.ASSIGN, "assign"},
 		{token.ID, "ten"},
-		{token.EQUAL, "="},
 		{token.INT, "10"},
 		{token.SEMICOLON, ";"},
 		{token.ASSIGN, "assign"},
 		{token.ID, "add"},
-		{token.EQUAL, "="},
 		{token.FUNCTION, "function"},
 		{token.LPAREN, "("},
 		{token.ID, "x"},
@@ -53,7 +56,6 @@ func TestFetchNextToken(t *testing.T) {
 		{token.SEMICOLON, ";"},
 		{token.ASSIGN, "assign"},
 		{token.ID, "result"},
-		{token.EQUAL, "="},
 		{token.ID, "add"},
 		{token.LPAREN, "("},
 		{token.ID, "five"},
@@ -72,6 +74,14 @@ func TestFetchNextToken(t *testing.T) {
 		{token.INT, "10"},
 		{token.GT, ">"},
 		{token.INT, "5"},
+		{token.SEMICOLON, ";"},
+		{token.ID, "result"},
+		{token.NEQ, "!="},
+		{token.INT, "15"},
+		{token.SEMICOLON, ";"},
+		{token.ID, "result"},
+		{token.EQ, "=="},
+		{token.INT, "15"},
 		{token.SEMICOLON, ";"},
 		{token.IF, "if"},
 		{token.LPAREN, "("},

@@ -142,8 +142,6 @@ func (l *Lexer) FetchNextToken() token.Token {
 		curToken = l.ParseNum()
 	} else {
 		switch l.curChar {
-		case '=':
-			curToken = token.CreateToken(token.EQUAL, l.curChar)
 		case '+':
 			curToken = token.CreateToken(token.PLUS, l.curChar)
 		case '-':
@@ -156,8 +154,20 @@ func (l *Lexer) FetchNextToken() token.Token {
 			curToken = token.CreateToken(token.GT, l.curChar)
 		case '<':
 			curToken = token.CreateToken(token.LT, l.curChar)
+		case '=':
+			if l.peekNext() == '=' {
+				curToken.Type = token.EQ
+				curToken.Literal = string(l.curChar) + string(l.peekNext())
+				l.readNextChar()
+			}
 		case '!':
-			curToken = token.CreateToken(token.NOT, l.curChar)
+			if l.peekNext() == '=' {
+				curToken.Type = token.NEQ
+				curToken.Literal = string(l.curChar) + string(l.peekNext())
+				l.readNextChar()
+			} else {
+				curToken = token.CreateToken(token.NOT, l.curChar)
+			}
 		case ',':
 			curToken = token.CreateToken(token.COMMA, l.curChar)
 		case ';':

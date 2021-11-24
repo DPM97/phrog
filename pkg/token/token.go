@@ -17,14 +17,17 @@ const (
 	CHAR = "CHAR"
 
 	// Ops
-	EQUAL    = "="
 	PLUS     = "+"
 	MINUS    = "-"
 	MULTIPLY = "*"
 	DIVIDE   = "/"
-	GT       = ">"
-	LT       = "<"
 	NOT      = "!"
+
+	// Comps
+	EQ  = "=="
+	NEQ = "!="
+	GT  = ">"
+	LT  = "<"
 
 	// Delims
 	COMMA     = ","
